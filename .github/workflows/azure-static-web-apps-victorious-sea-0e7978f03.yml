@@ -14,7 +14,7 @@ jobs:
     runs-on: windows-latest
     name: Build Job
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           submodules: true
       - name: Install DocFX
@@ -34,7 +34,7 @@ jobs:
       - name: Zip artifact for deployment
         run: Compress-Archive -Path _site/* -DestinationPath .\_site.zip
       - name: Publish results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
         with:
           name: release
           path: _site.zip
@@ -45,7 +45,7 @@ jobs:
     needs: build_job
     name: Deploy Job to Storage account
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
         with:
           name: release
           path: .
@@ -68,16 +68,6 @@ jobs:
           az storage blob sync \
             --source _site \
             --container docs
-      #       --connection-string ${{ secrets.AZURE_STORAGE_ACCOUNT_DOCS_CONNECTION_STRING }}
-      # - name: Upload the new files
-      #   uses: bacongobbler/azure-blob-storage-upload@main
-      #   with:
-      #     source_dir: _site
-      #     container_name: docs
-      #     connection_string: ${{ secrets.AZURE_STORAGE_ACCOUNT_DOCS_CONNECTION_STRING }}
-      #     # Sync: true keeps the source and destination in sync,
-      #     # otherwise changed files and new would be pushed, but deleted wouldn't be removed.
-      #     sync: 'true'
   
   deploy_job_SA_SWA:
     if: (github.event_name == 'push' && github.repository == 'SkylineCommunications/dataminer-docs')
@@ -85,7 +75,7 @@ jobs:
     needs: build_job
     name: Deploy Job to SA with SWA and FD
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
         with:
           name: release
           path: .
@@ -103,14 +93,6 @@ jobs:
           az storage blob sync \
             --source _site \
             --container '$web'
-      #      --connection-string ${{ secrets.AZURE_SA_DOCS_SWA }} 
-      # - name: Upload the new files
-      #   uses: bacongobbler/azure-blob-storage-upload@main
-      #   with:
-      #     source_dir: _site
-      #     container_name: $web
-      #     connection_string: ${{ secrets.AZURE_SA_DOCS_SWA }}
-      #     sync: 'true'
           
   reindex_azure_search:
     runs-on: ubuntu-latest
@@ -118,9 +100,8 @@ jobs:
     name: Re-index azure search
     steps:
     - name: Azure Cognitive Search Reindex
-      # You may pin to the exact commit or the version.
-      # uses: andrewconnell/azure-search-index@ac64a40924771a415e01d52db4c1d557ecd3a99f
-      uses: andrewconnell/azure-search-index@2.0.3
+      # version 2.0.3
+      uses: andrewconnell/azure-search-index@bda856c34c857a2729826cd3f0c70fc3d7cf273a
       with:
         # Name of the Azure Cognitive Search resource.
         azure-search-instance: docs-srch
