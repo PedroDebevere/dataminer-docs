@@ -26,6 +26,7 @@ In the header of a file tab containing the C# code of a QAction or Exe code bloc
 ### IntelliSense
 
 When you edit the C# code of a QAction or Exe code block, all regular C# editing features (including IntelliSense) are at your disposal.
+The [DataMiner DevPack](xref:TOODataMinerDevPackages) NuGet packages include XML documentation files which provide the same documentation as the API documentation.
 
 ### Copying the entire protocol to the Windows Clipboard
 

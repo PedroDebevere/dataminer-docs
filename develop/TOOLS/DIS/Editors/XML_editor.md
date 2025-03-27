@@ -398,6 +398,9 @@ If the root tag of the protocol XML file or the Automation script XML file you a
 - When you type a "\<" sign between two existing tags, a selection box will appear listing all tags you are allowed to insert at that location. After you select one of the proposed tags, a list will be presented with all possible attributes for that specific tag.
 - When adding content to Commands, Responses, Pairs, Groups, Triggers, Timers, etc., an IntelliSense pop-up will appear, listing all existing items that can be added. In case of a group, the listed items will depend on the type of the group, e.g. actions are only added to the list when the type is "action" or "poll action".
 
+> [!NOTE]
+> DIS includes the XML Schemas defined in the [Skyline.DataMiner.XmlSchemas](https://github.com/SkylineCommunications/Skyline.DataMiner.XmlSchemas) GitHub repository.
+
 #### DIS Validator tool window
 
 All syntax errors in the XML file you are editing can be found in the *DIS Validator* tool window.
